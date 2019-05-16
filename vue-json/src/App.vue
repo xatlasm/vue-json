@@ -1,17 +1,32 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>{{title}}</h1>
+    <button v-on:click="getTodos">Get todo list</button>
+    <ol v-if="todos" id="todo-list">
+      <li v-for="todo in todos" v-bind:key="todo.id">
+        <p>{{todo.name}}</p>
+      </li>
+    </ol>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import axios from 'axios'
+const baseURL = 'https://api.myjson.com/bins/jebvm'
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      title: "Todo List",
+      todos: null
+    }
+  },
+  methods: {
+    getTodos() {
+      axios.get(baseURL)
+        .then(response => {
+          this.todos = response.data.todos
+        })
+    }
   }
 }
 </script>
@@ -24,5 +39,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#todo-list {
+  text-align: left;
+  font-weight: bold;
 }
 </style>
