@@ -1,29 +1,11 @@
 # vue-json
 
-## Project setup
-```
-npm install
-```
+## Project description
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+This is a very rudimentary app that I am making to learn javascript, node.js, vue.js, JSON, and heroku.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Features
 
-### Run your tests
-```
-npm run test
-```
+* Button to request an externally-hosted JSON object
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+* Display the results on the page as an ordered list.
