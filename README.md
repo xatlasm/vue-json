@@ -10,4 +10,4 @@ It can be viewed [here](https://vue-json.herokuapp.com/).
 
 * Button to request an externally-hosted JSON object
 
-* Display the results on the page as an ordered list.
+* Display the results on the page as an unordered list.

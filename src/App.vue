@@ -2,11 +2,14 @@
   <div id="app">
     <h1>{{title}}</h1>
     <button v-on:click="getTodos">Get todo list</button>
-    <ol v-if="todos" id="todo-list">
+    <form v-on:submit.prevent="newTodo">
+      <input type="text" v-model="newTodoName" placeholder="New Todo">
+    </form>
+    <ul v-if="todos" id="todo-list">
       <li v-for="todo in todos" v-bind:key="todo.id">
         <p>{{todo.name}}</p>
       </li>
-    </ol>
+    </ul>
   </div>
 </template>
 
@@ -24,8 +27,14 @@ export default {
     getTodos() {
       axios.get(baseURL)
         .then(response => {
-          this.todos = response.data.todos
+          this.todos = response.data
         })
+    },
+    newTodo(todos, newTodoName) {
+      todos.push({
+        id: todos.length + 1,
+        name: newTodoName
+      })
     }
   }
 }
