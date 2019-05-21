@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       title: "Todo List",
-      todos: {}
+      todos: []
     }
   },
   methods: {
