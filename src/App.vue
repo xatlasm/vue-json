@@ -2,6 +2,7 @@
   <div id="app">
     <h1>{{title}}</h1>
     <button v-on:click="getTodos">Load todo list</button>
+    <button v-on:click="clearTodos">Clear todo list</button>
     <form v-on:submit.prevent="newTodo">
       <input type="text" v-model="newTodoName" placeholder="New Todo">
     </form>
@@ -36,6 +37,9 @@ export default {
         name: this.newTodoName
       })
       this.newTodoName = ''
+    },
+    clearTodos() {
+      this.todos = []
     }
   }
 }
