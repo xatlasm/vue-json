@@ -9,7 +9,7 @@
     <button @click="clearTodos">Clear todo list</button>
     <ul id="todo-list">
       <li v-for="todo in todos" :key="todo.id" :class="todo.class">
-        <p :id = "done">{{todo.name}} <button @click="deleteTodo(todo)">Delete</button></p>
+        <p><input :id="todo.name" type="checkbox"><label :for="todo.name">{{todo.name}}</label> <button @click="deleteTodo(todo)">Delete</button></p>
       </li>
     </ul>
   </div>
@@ -61,8 +61,6 @@ export default {
 #todo-list {
   text-align: left;
   font-weight: bold;
-}
-#done {
-  text-decoration: line-through;
+  list-style: none;
 }
 </style>
