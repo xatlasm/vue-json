@@ -2,10 +2,11 @@
   <div id="app">
     <h1>{{title}}</h1>
     <button v-on:click="getTodos">Load todo list</button>
-    <button v-on:click="clearTodos">Clear todo list</button>
     <form v-on:submit.prevent="newTodo">
       <input type="text" v-model="newTodoName" placeholder="New Todo">
+      <button type="submit">Create</button>
     </form>
+    <button v-on:click="clearTodos">Clear todo list</button>
     <ul id="todo-list">
       <li v-for="todo in todos" v-bind:key="todo.id">
         <p>{{todo.name}}</p>
