@@ -1,15 +1,15 @@
 <template>
   <div id="app">
     <h1>{{title}}</h1>
-    <button v-on:click="getTodos">Load todo list</button>
+    <button @click="getTodos">Load todo list</button>
     <form v-on:submit.prevent="newTodo">
       <input type="text" v-model="newTodoName" placeholder="New Todo">
       <button type="submit">Create</button>
     </form>
-    <button v-on:click="clearTodos">Clear todo list</button>
+    <button @click="clearTodos">Clear todo list</button>
     <ul id="todo-list">
-      <li v-for="todo in todos" v-bind:key="todo.id">
-        <p>{{todo.name}}</p>
+      <li v-for="todo in todos" :key="todo.id" :class="todo.class">
+        <p :id = "done">{{todo.name}} <button @click="deleteTodo(todo)">Delete</button></p>
       </li>
     </ul>
   </div>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       title: "Todo List",
-      todos: []
+      todos: [],
     }
   },
   methods: {
@@ -35,12 +35,15 @@ export default {
     newTodo() {
       this.todos.push({
         id: this.todos.length + 1,
-        name: this.newTodoName
+        name: this.newTodoName,
       })
       this.newTodoName = ''
     },
     clearTodos() {
       this.todos = []
+    },
+    deleteTodo(todo) {
+      this.todos.splice(this.todos.indexOf(todo),1)
     }
   }
 }
@@ -58,5 +61,8 @@ export default {
 #todo-list {
   text-align: left;
   font-weight: bold;
+}
+#done {
+  text-decoration: line-through;
 }
 </style>
