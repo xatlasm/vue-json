@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <h1>{{title}}</h1>
-    <button @click="getTodos">Load todo list</button>
+    <button @click="loadTodos(jsonKey)">Load todo list</button>
+    <button @click="saveTodos(jsonKey)">Save todo list</button>
     <form v-on:submit.prevent="newTodo">
       <input type="text" v-model="newTodoName" placeholder="New Todo">
       <button type="submit">Create</button>
@@ -17,20 +18,40 @@
 
 <script>
 import axios from 'axios'
-const baseURL = 'https://api.myjson.com/bins/jebvm'
+const baseURL = 'https://api.myjson.com/bins/'
 export default {
   data() {
     return {
       title: "Todo List",
       todos: [],
+      jsonKey: "jebvm"
     }
   },
   methods: {
-    getTodos() {
-      axios.get(baseURL)
+    loadTodos(jsonKey) {
+      jsonKey = prompt("Enter your key", jsonKey)
+      if (jsonKey === null || jsonKey === '') {return}
+      axios.get(baseURL+jsonKey)
         .then(response => {
           this.todos = response.data
+          this.jsonKey = jsonKey
         })
+    },
+    saveTodos(jsonKey) {
+      if (this.jsonKey === "jebvm" || this.jsonKey === '' || this.jsonKey === null) {
+        axios.post(baseURL,this.todos)
+          .then(response => {
+            this.jsonKey = response.data.uri.match(/bins\/\/(.*)/)[1]
+            alert("List saved successfully. Your key is:\n\n" + this.jsonKey + "\n\nPlease keep your key safe as you need it to load your list again.\nCaution: Anyone who knows your key can access your list!")
+          })
+      }
+      else {
+        axios.put(baseURL+jsonKey,this.todos)
+          .then(response => {
+            if (response.status===200) {
+              alert("List saved successfully. Your key is:\n\n" + this.jsonKey + "\n\nPlease keep your key safe as you need it to load your list again.\nCaution: Anyone who knows your key can access your list!")
+          }})
+      }
     },
     newTodo() {
       this.todos.push({
