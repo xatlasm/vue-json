@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <h1>{{title}}</h1>
-    <button @click="loadTodos(jsonKey)">Load todo list</button>
-    <button @click="saveTodos(jsonKey)">Save todo list</button>
+    <button @click="loadTodos(jsonKey)">Load to-do list</button>
+    <button @click="saveTodos(jsonKey)">Save to-do list</button>
     <form v-on:submit.prevent="newTodo">
-      <input type="text" v-model="newTodoName" placeholder="New Todo">
+      <input type="text" v-model="newTodoName" placeholder="New To-do">
       <button type="submit">Create</button>
     </form>
-    <button @click="clearTodos">Clear todo list</button>
+    <button @click="clearTodos">Clear to-do list</button>
     <ul id="todo-list">
       <li v-for="todo in todos" :key="todo.id" :class="todo.class">
         <p><input :id="todo.name" type="checkbox"><label :for="todo.name">{{todo.name}}</label> <button @click="deleteTodo(todo)">Delete</button></p>
@@ -22,7 +22,7 @@ const baseURL = 'https://api.myjson.com/bins/'
 export default {
   data() {
     return {
-      title: "Todo List",
+      title: "To-do List",
       todos: [],
       jsonKey: "jebvm"
     }
